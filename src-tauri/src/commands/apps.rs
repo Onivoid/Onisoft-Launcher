@@ -6,6 +6,8 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tauri::{AppHandle, Emitter, Manager};
+#[cfg(not(debug_assertions))]
+use tauri::path::BaseDirectory;
 use chrono::Utc;
 
 const MANIFEST_TTL_SECS: u64 = 3600;
@@ -138,18 +140,49 @@ struct InstallStatus {
     phase: String,
 }
 
-fn apps_root(app: &AppHandle) -> PathBuf {
+fn apps_root(app: &AppHandle) -> Result<PathBuf, String> {
     #[cfg(debug_assertions)]
     {
         let _ = app;
-        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..").join("apps")
+        Ok(PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..").join("apps"))
     }
+
     #[cfg(not(debug_assertions))]
     {
-        app.path()
-            .resource_dir()
-            .map(|p| p.join("apps"))
-            .unwrap_or_else(|_| PathBuf::from("apps"))
+        let mut candidates: Vec<PathBuf> = Vec::new();
+        let mut push = |p: PathBuf| {
+            if !candidates.iter().any(|c| c == &p) {
+                candidates.push(p);
+            }
+        };
+
+        // Preferred layout after fixing bundle.resources map (`../apps/` → `apps/`)
+        if let Ok(p) = app.path().resolve("apps", BaseDirectory::Resource) {
+            push(p);
+        }
+        // Legacy layout from list-style `../apps/**/*` (../ → `_up_`)
+        if let Ok(p) = app.path().resolve("_up_/apps", BaseDirectory::Resource) {
+            push(p);
+        }
+        if let Ok(rd) = app.path().resource_dir() {
+            push(rd.join("apps"));
+            push(rd.join("_up_").join("apps"));
+        }
+
+        for dir in &candidates {
+            if dir.join("catalog.json").is_file() {
+                return Ok(dir.clone());
+            }
+        }
+
+        let looked = candidates
+            .iter()
+            .map(|p| p.display().to_string())
+            .collect::<Vec<_>>()
+            .join(", ");
+        Err(format!(
+            "catalog not found under resource dir (looked in: {looked})"
+        ))
     }
 }
 
@@ -176,13 +209,13 @@ fn install_state_path(app: &AppHandle) -> Result<PathBuf, String> {
 }
 
 fn read_catalog(app: &AppHandle) -> Result<CatalogFile, String> {
-    let path = apps_root(app).join("catalog.json");
+    let path = apps_root(app)?.join("catalog.json");
     let raw = fs::read_to_string(&path).map_err(|e| format!("read catalog: {e}"))?;
     serde_json::from_str(&raw).map_err(|e| format!("parse catalog: {e}"))
 }
 
 fn read_bundled_manifest(app: &AppHandle, id: &str) -> Result<AppManifest, String> {
-    let path = apps_root(app).join("manifests").join(format!("{id}.json"));
+    let path = apps_root(app)?.join("manifests").join(format!("{id}.json"));
     let raw = fs::read_to_string(&path).map_err(|e| format!("bundled manifest {id}: {e}"))?;
     serde_json::from_str(&raw).map_err(|e| format!("parse bundled {id}: {e}"))
 }

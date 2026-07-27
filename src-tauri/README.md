@@ -31,7 +31,7 @@ src-tauri/
 | `get_app_details` | Disk size, paths, cache size |
 | `uninstall_app` | Run Windows uninstaller + clear launcher state |
 
-Catalog and bundled manifests are loaded from `apps/` (dev: repo root; release: bundled resources).
+Catalog and bundled manifests are loaded from `apps/` (dev: repo root; release: `$RESOURCE/apps/` via `bundle.resources`).
 
 ## Adding a command
 
