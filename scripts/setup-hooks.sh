@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
+# Thin wrapper kept for manual runs; prefer: node scripts/setup-hooks.mjs
 set -e
-
-git config core.hooksPath .githooks
-chmod +x .githooks/pre-commit .githooks/post-commit
-
-echo "✓ Git hooks installed (.githooks/)"
+node "$(dirname "$0")/setup-hooks.mjs"

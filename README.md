@@ -59,6 +59,8 @@ VERSION_BUMP=1 git commit -m "chore: bump version"
 
 Sans `VERSION_BUMP=1`, les commits passent normalement.
 
+Les hooks git sont installés automatiquement via `pnpm install` (`prepare` → `node scripts/setup-hooks.mjs`, compatible Windows / macOS / Linux).
+
 ## Auto-Update
 
 Configurer dans `src-tauri/tauri.conf.json` :
