@@ -1,116 +1,101 @@
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Sun, Moon, Monitor, Languages, RefreshCw } from "lucide-react";
-import { useTheme, useLanguage } from "@/composables";
-import { ROUTES } from "@/constants";
-import { getVersion } from "@tauri-apps/api/app";
+import { ArrowLeft } from "lucide-react";
+import { useLanguage, useTheme } from "@/composables";
+import { useApps } from "@/composables/useApps";
+import { clearManifestCache } from "@/lib/apps";
 
 export default function Settings() {
   const { t } = useTranslation();
   const { theme, setTheme } = useTheme();
   const { currentLanguage, changeLanguage } = useLanguage();
-  const [appVersion, setAppVersion] = useState<string>("");
-
-  useEffect(() => {
-    getVersion().then(setAppVersion).catch(() => { });
-  }, []);
+  const { refresh, reload } = useApps();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-8">
-      <h1 className="text-4xl font-bold">{t("settings.title")}</h1>
-
-      <div className="w-full max-w-md space-y-6">
-        {/* Theme Settings */}
-        <div className="border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-2">{t("settings.theme.title")}</h2>
-          <p className="text-sm text-muted-foreground mb-4">
-            {t("settings.theme.description")}
-          </p>
-          <div className="flex gap-2">
-            <Button
-              variant={theme === "light" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setTheme("light")}
-            >
-              <Sun className="mr-2 h-4 w-4" />
-              {t("settings.theme.light")}
-            </Button>
-            <Button
-              variant={theme === "dark" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setTheme("dark")}
-            >
-              <Moon className="mr-2 h-4 w-4" />
-              {t("settings.theme.dark")}
-            </Button>
-            <Button
-              variant={theme === "system" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setTheme("system")}
-            >
-              <Monitor className="mr-2 h-4 w-4" />
-              {t("settings.theme.system")}
-            </Button>
-          </div>
-          {theme === "system" && (
-            <p className="text-xs text-muted-foreground mt-3">
-              {t("settings.theme.systemDescription")}
-            </p>
-          )}
-        </div>
-
-        {/* Language Settings */}
-        <div className="border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-2">{t("settings.language.title")}</h2>
-          <p className="text-sm text-muted-foreground mb-4">
-            {t("settings.language.description")}
-          </p>
-          <div className="flex gap-2">
-            <Button
-              variant={currentLanguage === "en" ? "default" : "outline"}
-              size="sm"
-              onClick={() => changeLanguage("en")}
-            >
-              <Languages className="mr-2 h-4 w-4" />
-              {t("settings.language.en")}
-            </Button>
-            <Button
-              variant={currentLanguage === "fr" ? "default" : "outline"}
-              size="sm"
-              onClick={() => changeLanguage("fr")}
-            >
-              <Languages className="mr-2 h-4 w-4" />
-              {t("settings.language.fr")}
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full max-w-md">
-        <div className="border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-2">{t("settings.updates.title", "Updates")}</h2>
-          {appVersion && (
-            <p className="text-sm text-muted-foreground mb-4">
-              {t("settings.updates.currentVersion", "Current version")}: v{appVersion}
-            </p>
-          )}
-          <Link to={ROUTES.UPDATE}>
-            <Button variant="outline" size="sm">
-              <RefreshCw className="mr-2 h-4 w-4" />
-              {t("settings.updates.check", "Check for updates")}
-            </Button>
-          </Link>
-        </div>
-      </div>
-
-      <Link to={ROUTES.HOME}>
-        <Button variant="outline">
-          <ArrowLeft className="mr-2 h-4 w-4" />
+    <section className="stage-enter mx-auto flex max-w-xl flex-col gap-10 px-8 pb-16 pt-10 md:px-12">
+      <div>
+        <Link
+          to="/"
+          className="mb-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ArrowLeft className="size-3.5" />
           {t("common.back")}
-        </Button>
-      </Link>
-    </div>
+        </Link>
+        <h1 className="font-display text-4xl text-foreground md:text-5xl">
+          {t("settings.title")}
+        </h1>
+        <p className="mt-3 text-muted-foreground">{t("settings.subtitle")}</p>
+      </div>
+
+      <section className="space-y-3">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          {t("settings.theme.title")}
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          {(["light", "dark", "system"] as const).map((value) => (
+            <button
+              key={value}
+              type="button"
+              className={`cta-ghost ${theme === value ? "is-selected" : ""}`}
+              onClick={() => setTheme(value)}
+            >
+              {t(`settings.theme.${value}`)}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          {t("settings.language.title")}
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            className={`cta-ghost ${currentLanguage === "fr" ? "is-selected" : ""}`}
+            onClick={() => void changeLanguage("fr")}
+          >
+            {t("settings.language.fr")}
+          </button>
+          <button
+            type="button"
+            className={`cta-ghost ${currentLanguage === "en" ? "is-selected" : ""}`}
+            onClick={() => void changeLanguage("en")}
+          >
+            {t("settings.language.en")}
+          </button>
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          {t("settings.catalog.title")}
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          <button type="button" className="cta-ghost" onClick={() => void refresh()}>
+            {t("settings.catalog.refresh")}
+          </button>
+          <button
+            type="button"
+            className="cta-ghost"
+            onClick={async () => {
+              await clearManifestCache();
+              await reload();
+            }}
+          >
+            {t("settings.catalog.clearCache")}
+          </button>
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          {t("settings.updates.title")}
+        </h2>
+        <Link to="/update" className="cta-ghost inline-flex">
+          {t("settings.updates.check")}
+        </Link>
+      </section>
+    </section>
   );
 }

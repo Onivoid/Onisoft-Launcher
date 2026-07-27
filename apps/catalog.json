@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "id": "multitool",
+      "manifestUrl": "https://raw.githubusercontent.com/Onivoid/Onisoft-Launcher/main/apps/manifests/multitool.json"
+    },
+    {
+      "id": "pictools",
+      "manifestUrl": "https://raw.githubusercontent.com/Onivoid/Onisoft-Launcher/main/apps/manifests/pictools.json"
+    },
+    {
+      "id": "flowsint",
+      "manifestUrl": "https://raw.githubusercontent.com/Onivoid/Onisoft-Launcher/main/apps/manifests/flowsint.json"
+    }
+  ]
+}

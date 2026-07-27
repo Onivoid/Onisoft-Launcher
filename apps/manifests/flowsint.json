@@ -1,0 +1,40 @@
+{
+  "id": "flowsint",
+  "name": {
+    "fr": "Flowsint Desktop",
+    "en": "Flowsint Desktop"
+  },
+  "description": {
+    "fr": "Wrapper desktop communautaire pour Flowsint — OSINT en un double-clic (Docker requis).",
+    "en": "Community desktop wrapper for Flowsint — OSINT in one double-click (Docker required)."
+  },
+  "branding": {
+    "primaryColor": "#F97316",
+    "logo": "https://raw.githubusercontent.com/Onivoid/flowsint-desktop/master/src-tauri/icons/128x128.png"
+  },
+  "repo": "https://github.com/Onivoid/flowsint-desktop",
+  "version": {
+    "source": "github-releases",
+    "repo": "Onivoid/flowsint-desktop"
+  },
+  "download": {
+    "windows-x86_64": {
+      "asset": "Flowsint.Desktop_*_x64_en-US.msi",
+      "kind": "installer",
+      "match": "glob"
+    }
+  },
+  "launch": {
+    "windows": {
+      "executable": "Flowsint Desktop.exe",
+      "candidates": [
+        "%PROGRAMFILES%/Flowsint Desktop/Flowsint Desktop.exe",
+        "%PROGRAMFILES%/Flowsint Desktop/flowsint-desktop.exe",
+        "%PROGRAMFILES(X86)%/Flowsint Desktop/Flowsint Desktop.exe",
+        "%LOCALAPPDATA%/Programs/Flowsint Desktop/Flowsint Desktop.exe",
+        "%LOCALAPPDATA%/Programs/Flowsint Desktop/flowsint-desktop.exe",
+        "%LOCALAPPDATA%/Flowsint Desktop/Flowsint Desktop.exe"
+      ]
+    }
+  }
+}

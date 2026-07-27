@@ -1,4 +1,4 @@
-# OnisoftLauncher
+# Onisoft Launcher
 
 Launcher desktop pour l’écosystème Onisoft — basé sur Tauri v2, React 19, TypeScript et TailwindCSS.
 
@@ -38,9 +38,13 @@ pnpm tauri build
 ## Documentation
 
 - **[Architecture](src/ARCHITECTURE.md)** — structure et conventions
+- **[Ajouter une app](templates/README.md)** — manifests dans `apps/manifests/` + catalog
 - **[Tauri Plugins](TAURI_PLUGINS.md)** — configuration des plugins
 - **[Rust Backend](src-tauri/README.md)** — organisation Rust
 
+## Catalogue
+
+Les manifests des apps sont **centralisés** dans ce dépôt (`apps/catalog.json` + `apps/manifests/`). Pas besoin de `onisoft.manifest.json` dans chaque repo d’app.
 ## Scripts
 
 ```bash

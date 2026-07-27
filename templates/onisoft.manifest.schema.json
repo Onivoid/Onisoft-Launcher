@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://onisoft.dev/schemas/onisoft.manifest.schema.json",
+  "title": "Onisoft app manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "description",
+    "branding",
+    "repo",
+    "version",
+    "download",
+    "launch"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Stable app id used by the launcher catalog."
+    },
+    "name": { "$ref": "#/$defs/localizedText" },
+    "description": { "$ref": "#/$defs/localizedText" },
+    "branding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primaryColor", "logo"],
+      "properties": {
+        "primaryColor": {
+          "type": "string",
+          "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+        },
+        "logo": { "type": "string", "format": "uri" }
+      }
+    },
+    "repo": { "type": "string", "format": "uri" },
+    "version": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "repo"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "const": "github-releases"
+        },
+        "repo": {
+          "type": "string",
+          "pattern": "^[^/]+/[^/]+$",
+          "description": "GitHub owner/repo"
+        }
+      }
+    },
+    "download": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/downloadSpec" },
+      "propertyNames": {
+        "enum": [
+          "windows-x86_64",
+          "darwin-universal",
+          "darwin-aarch64",
+          "darwin-x86_64",
+          "linux-x86_64"
+        ]
+      }
+    },
+    "launch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "windows": { "$ref": "#/$defs/launchOs" },
+        "macos": { "$ref": "#/$defs/launchOs" },
+        "linux": { "$ref": "#/$defs/launchOs" }
+      }
+    }
+  },
+  "$defs": {
+    "localizedText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fr", "en"],
+      "properties": {
+        "fr": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 }
+      }
+    },
+    "downloadSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["asset", "kind"],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Exact asset name or glob when match is \"glob\"."
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["installer", "portable", "archive"]
+        },
+        "match": {
+          "type": "string",
+          "enum": ["exact", "glob"]
+        }
+      }
+    },
+    "launchOs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["executable"],
+      "properties": {
+        "executable": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Preferred binary name (e.g. MyApp.exe)."
+        },
+        "candidates": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Absolute/env paths to try when locating an installed app."
+        }
+      }
+    }
+  }
+}

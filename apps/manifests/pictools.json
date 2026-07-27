@@ -1,0 +1,37 @@
+{
+  "id": "pictools",
+  "name": {
+    "fr": "Pictools",
+    "en": "Pictools"
+  },
+  "description": {
+    "fr": "Boîte à outils image locale — conversion, icônes app, sans upload.",
+    "en": "Local-first image toolbox — conversion, app icons, no uploads."
+  },
+  "branding": {
+    "primaryColor": "#4136d4",
+    "logo": "https://raw.githubusercontent.com/Onivoid/PictoolsApp/main/public/pictools.svg"
+  },
+  "repo": "https://github.com/Onivoid/PictoolsApp",
+  "version": {
+    "source": "github-releases",
+    "repo": "Onivoid/PictoolsApp"
+  },
+  "download": {
+    "windows-x86_64": {
+      "asset": "PictoolsApp_*_x64-setup.exe",
+      "kind": "installer",
+      "match": "glob"
+    }
+  },
+  "launch": {
+    "windows": {
+      "executable": "PictoolsApp.exe",
+      "candidates": [
+        "%LOCALAPPDATA%/PictoolsApp/PictoolsApp.exe",
+        "%PROGRAMFILES%/PictoolsApp/PictoolsApp.exe",
+        "%LOCALAPPDATA%/Programs/PictoolsApp/PictoolsApp.exe"
+      ]
+    }
+  }
+}

@@ -1,109 +1,64 @@
 # Architecture Rust Backend
 
-## 📁 Structure
+## Structure
 
 ```
 src-tauri/
 ├── src/
-│   ├── lib.rs              # Point d'entrée principal
-│   ├── main.rs             # Binary entry point
-│   └── commands/           # Commandes Tauri
-│       ├── mod.rs          # Module exports
-│       └── system.rs       # Commandes système
-│
-├── Cargo.toml              # Dépendances Rust
-└── tauri.conf.json         # Configuration Tauri
+│   ├── lib.rs                 # Tauri builder, window icon, command handler
+│   ├── main.rs                # Binary entry
+│   └── commands/
+│       ├── mod.rs
+│       └── apps.rs            # Catalog, manifests, download/install/launch/uninstall
+├── capabilities/
+│   └── default.json
+├── icons/
+├── Cargo.toml
+└── tauri.conf.json
 ```
 
-## 🎯 Organisation des Commandes
+## Commands (`commands/apps.rs`)
 
-### `commands/system.rs`
-Commandes liées au système :
-- `greet(name: &str)` - Exemple de salutation
-- `get_system_info()` - Informations système (OS, arch, version)
+| Command | Role |
+|---|---|
+| `list_apps` | Resolve catalog + manifests + install state |
+| `get_app_manifest` | One app summary (optional force refresh) |
+| `refresh_manifests` | Force-refresh all remote manifests |
+| `clear_manifest_cache` | Wipe local manifest cache |
+| `download_app` | Download release asset + run installer + locate exe |
+| `launch_app` | Launch installed executable |
+| `detect_install` | Rediscover install path from manifest candidates |
+| `get_app_details` | Disk size, paths, cache size |
+| `uninstall_app` | Run Windows uninstaller + clear launcher state |
 
-## 📝 Ajouter une Nouvelle Commande
+Catalog and bundled manifests are loaded from `apps/` (dev: repo root; release: bundled resources).
 
-### 1. Créer un nouveau module (optionnel)
-```rust
-// src/commands/mon_module.rs
-#[tauri::command]
-pub fn ma_commande(param: &str) -> String {
-    format!("Résultat: {}", param)
-}
-```
+## Adding a command
 
-### 2. Exporter depuis `commands/mod.rs`
-```rust
-pub mod system;
-pub mod mon_module;
+1. Implement `#[tauri::command]` in `commands/apps.rs` (or a new module).
+2. `pub use` from `commands/mod.rs` if needed.
+3. Register in `lib.rs` `generate_handler![…]`.
+4. Add a typed wrapper in `src/lib/apps.ts`.
 
-pub use system::*;
-pub use mon_module::*;
-```
+## Plugins
 
-### 3. Enregistrer dans `lib.rs`
-```rust
-.invoke_handler(tauri::generate_handler![
-    greet,
-    get_system_info,
-    ma_commande
-])
-```
+- `tauri-plugin-opener` — open external URLs
+- `tauri-plugin-updater` — signed auto-updates
+- `tauri-plugin-process` — relaunch after update
 
-## 🔧 Plugins Configurés
+## Practices
 
-- `tauri-plugin-opener` - Ouvrir URLs/fichiers
-- `tauri-plugin-fs` - Système de fichiers
-- `tauri-plugin-notification` - Notifications système
+1. Keep IPC coarse and typed (`Result<T, String>`).
+2. Validate `app_id` against the catalog; never trust path arguments from the webview.
+3. Prefer public GitHub release URLs over `api.github.com` for downloads.
+4. Document public commands briefly.
 
-## 🚀 Bonnes Pratiques
-
-1. **Modularité** - Séparez les commandes par domaine fonctionnel
-2. **Types** - Utilisez des structs avec `Serialize`/`Deserialize` pour les retours complexes
-3. **Erreurs** - Retournez `Result<T, String>` pour gérer les erreurs proprement
-4. **Documentation** - Commentez vos commandes publiques
-
-## 📦 Exemple de Commande avec Gestion d'Erreur
-
-```rust
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct User {
-    pub id: u32,
-    pub name: String,
-}
-
-#[tauri::command]
-pub fn get_user(id: u32) -> Result<User, String> {
-    if id == 0 {
-        return Err("ID invalide".to_string());
-    }
-    
-    Ok(User {
-        id,
-        name: "John Doe".to_string(),
-    })
-}
-```
-
-## 🔗 Utilisation depuis React
+## Calling from React
 
 ```typescript
-import { invoke } from "@tauri-apps/api/core";
+import { downloadApp, launchApp, uninstallApp } from "@/lib/apps";
 
-// Appel simple
-const result = await invoke<string>("greet", { name: "World" });
-
-// Avec gestion d'erreur
-try {
-    const user = await invoke<User>("get_user", { id: 1 });
-    console.log(user);
-} catch (error) {
-    console.error(error);
-}
-
-// Avec le hook useTauriCommand
-const { data, loading, error, execute } = useTauriCommand<User>("get_user", { id: 1 });
+await downloadApp("multitool");
+await launchApp("multitool");
+await uninstallApp("multitool");
 ```

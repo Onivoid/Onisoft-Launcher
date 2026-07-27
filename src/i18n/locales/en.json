@@ -1,121 +1,118 @@
 {
-    "common": {
-        "back": "Back",
-        "loading": "Loading...",
-        "error": "Error"
-    },
-    "nav": {
-        "home": "Home",
-        "about": "About",
-        "settings": "Settings",
-        "examples": "Examples"
-    },
-    "home": {
-        "title": "Welcome to OnisoftLauncher",
-        "subtitle": "Launcher for the Onisoft ecosystem",
-        "description": "List, download and update Onisoft apps from one place — built with React 19, TypeScript, TailwindCSS and Tauri v2.",
-        "features": {
-            "title": "Features",
-            "theme": "Light/Dark theme with system support",
-            "composables": "Reusable composables (Nuxt-style hooks)",
-            "routing": "React Router with MemoryRouter",
-            "ui": "shadcn/ui components",
-            "notifications": "Native system notifications",
-            "window": "Window control API"
-        },
-        "getStarted": "Get Started",
-        "viewExamples": "View Examples"
-    },
-    "about": {
-        "title": "About",
-        "description": "OnisoftLauncher is the desktop launcher for the Onisoft ecosystem.",
-        "tech": {
-            "title": "Technologies",
-            "frontend": "Frontend: React 19, TypeScript, TailwindCSS",
-            "backend": "Backend: Rust, Tauri v2",
-            "ui": "UI: shadcn/ui, Lucide Icons",
-            "routing": "Routing: React Router v7"
-        },
-        "architecture": {
-            "title": "Architecture",
-            "modular": "Modular and scalable structure",
-            "composables": "Reusable composables for Tauri APIs",
-            "typed": "Full TypeScript type-safety",
-            "documented": "Complete documentation"
-        }
-    },
-    "settings": {
-        "title": "Settings",
-        "theme": {
-            "title": "Theme",
-            "description": "Choose your preferred theme",
-            "light": "Light",
-            "dark": "Dark",
-            "system": "System",
-            "systemDescription": "Automatically adapts to your system preferences"
-        },
-        "language": {
-            "title": "Language",
-            "description": "Choose your preferred language",
-            "en": "English",
-            "fr": "Français"
-        },
-        "updates": {
-            "title": "Updates",
-            "currentVersion": "Current version",
-            "check": "Check for updates"
-        }
-    },
-    "updater": {
-        "title": "Update Available",
-        "version": "A new version is available",
-        "install": "Install",
-        "downloading": "Downloading...",
-        "later": "Later"
-    },
-    "update": {
-        "title": "Updates",
-        "currentVersion": "Current version",
-        "availableVersion": "Available version",
-        "checking": "Checking for updates...",
-        "upToDate": "You are up to date.",
-        "available": "Update available",
-        "checkFailed": "Check failed",
-        "checkButton": "Check for updates",
-        "installButton": "Install Update",
-        "installing": "Installing...",
-        "downloading": "Downloading..."
-    },
-    "examples": {
-        "title": "Tauri API Examples",
-        "subtitle": "Demonstration of available Tauri composables",
-        "window": {
-            "title": "Window Control",
-            "minimize": "Minimize",
-            "maximize": "Toggle Maximize",
-            "close": "Close"
-        },
-        "notifications": {
-            "title": "Notifications",
-            "send": "Send Notification",
-            "description": "Native system notifications",
-            "test": {
-                "title": "Notification Test",
-                "body": "This is a native system notification!"
-            }
-        },
-        "system": {
-            "title": "System Info",
-            "get": "Get System Info",
-            "os": "OS",
-            "arch": "Architecture",
-            "family": "Family"
-        }
-    },
-    "notFound": {
-        "title": "404",
-        "subtitle": "Page Not Found",
-        "description": "The page you are looking for does not exist.",
-        "backHome": "Back to Home"
+  "common": {
+    "back": "Back",
+    "loading": "Loading...",
+    "error": "Error",
+    "dismiss": "Dismiss",
+    "cancel": "Cancel"
+  },
+  "nav": {
+    "home": "Home",
+    "settings": "Settings",
+    "library": "Library"
+  },
+  "titlebar": {
+    "minimize": "Minimize",
+    "maximize": "Maximize",
+    "restore": "Restore",
+    "close": "Close"
+  },
+  "home": {
+    "eyebrow": "Ecosystem",
+    "subtitle": "Install, update and launch Onisoft apps from one place.",
+    "appsHeading": "Library",
+    "libraryHint": "Pick an app to install, update, or launch.",
+    "catalogStatus": "{{count}} apps · manifests in sync"
+  },
+  "app": {
+    "notFound": "App not found.",
+    "install": "Install",
+    "installing": "Installing…",
+    "update": "Update",
+    "updating": "Updating…",
+    "launch": "Launch",
+    "launchAnyway": "Launch anyway",
+    "detect": "Detect",
+    "repo": "Repository",
+    "uninstall": "Uninstall",
+    "uninstallTitle": "Uninstall {{name}}?",
+    "uninstallDescription": "The app will be removed from Windows. The launcher cache will also be cleared. This may prompt for UAC elevation.",
+    "uninstallConfirm": "Uninstall",
+    "uninstalling": "Uninstalling…",
+    "uninstallingPhase": "Uninstalling…",
+    "details": "Details",
+    "detailsNotInstalled": "Not installed on this machine yet.",
+    "installSize": "Disk size",
+    "cacheSize": "Launcher cache",
+    "installDir": "Folder",
+    "executable": "Executable",
+    "remoteVersion": "Latest",
+    "localVersion": "Installed",
+    "downloading": "Downloading…",
+    "installingPhase": "Installing…",
+    "locatingPhase": "Locating executable…",
+    "detectNotFound": "Executable not found — check the manifest paths",
+    "manifestSource": "Source",
+    "releaseTag": "Latest release · v{{version}}",
+    "releaseFallback": "Check the repository for the changelog.",
+    "installKind": "Kind",
+    "installedAt": "Installed on",
+    "viewOnGithub": "View on GitHub",
+    "status": {
+      "installed": "Installed",
+      "updateAvailable": "Update available",
+      "notInstalled": "Not installed"
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Appearance, language and catalog.",
+    "theme": {
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "title": "Language",
+      "en": "English",
+      "fr": "Français"
+    },
+    "catalog": {
+      "title": "Catalog",
+      "refresh": "Refresh manifests",
+      "clearCache": "Clear cache"
+    },
+    "updates": {
+      "title": "Launcher",
+      "check": "Launcher updates"
+    }
+  },
+  "updater": {
+    "title": "Update Available",
+    "version": "A new version is available",
+    "install": "Install",
+    "downloading": "Downloading...",
+    "later": "Later"
+  },
+  "update": {
+    "title": "Updates",
+    "currentVersion": "Current version",
+    "availableVersion": "Available version",
+    "checking": "Checking for updates...",
+    "upToDate": "You are up to date.",
+    "available": "Update available",
+    "checkFailed": "Check failed",
+    "noReleaseYet": "No launcher release published yet.",
+    "checkButton": "Check for updates",
+    "installButton": "Install Update",
+    "installing": "Installing...",
+    "downloading": "Downloading..."
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "backHome": "Back to Home"
+  }
 }

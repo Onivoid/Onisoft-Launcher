@@ -24,3 +24,10 @@ dist-ssr
 *.sw?
 
 temp/
+
+# Design tooling
+.hallmark/
+
+# Mobile icon outputs from `tauri icon` (desktop-only app)
+src-tauri/icons/android/
+src-tauri/icons/ios/

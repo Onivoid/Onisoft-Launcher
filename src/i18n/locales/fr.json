@@ -1,121 +1,118 @@
 {
-    "common": {
-        "back": "Retour",
-        "loading": "Chargement...",
-        "error": "Erreur"
-    },
-    "nav": {
-        "home": "Accueil",
-        "about": "À propos",
-        "settings": "Paramètres",
-        "examples": "Exemples"
-    },
-    "home": {
-        "title": "Bienvenue sur OnisoftLauncher",
-        "subtitle": "Launcher de l'écosystème Onisoft",
-        "description": "Listez, téléchargez et mettez à jour les apps Onisoft depuis un seul endroit — basé sur React 19, TypeScript, TailwindCSS et Tauri v2.",
-        "features": {
-            "title": "Fonctionnalités",
-            "theme": "Thème clair/sombre avec support système",
-            "composables": "Composables réutilisables (hooks style Nuxt)",
-            "routing": "React Router avec MemoryRouter",
-            "ui": "Composants shadcn/ui",
-            "notifications": "Notifications système natives",
-            "window": "API de contrôle de fenêtre"
-        },
-        "getStarted": "Commencer",
-        "viewExamples": "Voir les Exemples"
-    },
-    "about": {
-        "title": "À propos",
-        "description": "OnisoftLauncher est le launcher desktop de l'écosystème Onisoft.",
-        "tech": {
-            "title": "Technologies",
-            "frontend": "Frontend : React 19, TypeScript, TailwindCSS",
-            "backend": "Backend : Rust, Tauri v2",
-            "ui": "UI : shadcn/ui, Lucide Icons",
-            "routing": "Routing : React Router v7"
-        },
-        "architecture": {
-            "title": "Architecture",
-            "modular": "Structure modulaire et scalable",
-            "composables": "Composables réutilisables pour les APIs Tauri",
-            "typed": "Type-safety complète avec TypeScript",
-            "documented": "Documentation complète"
-        }
-    },
-    "settings": {
-        "title": "Paramètres",
-        "theme": {
-            "title": "Thème",
-            "description": "Choisissez votre thème préféré",
-            "light": "Clair",
-            "dark": "Sombre",
-            "system": "Système",
-            "systemDescription": "S'adapte automatiquement aux préférences de votre système"
-        },
-        "language": {
-            "title": "Langue",
-            "description": "Choisissez votre langue préférée",
-            "en": "English",
-            "fr": "Français"
-        },
-        "updates": {
-            "title": "Mises à jour",
-            "currentVersion": "Version actuelle",
-            "check": "Vérifier les mises à jour"
-        }
-    },
-    "updater": {
-        "title": "Mise à jour disponible",
-        "version": "Une nouvelle version est disponible",
-        "install": "Installer",
-        "downloading": "Téléchargement...",
-        "later": "Plus tard"
-    },
-    "update": {
-        "title": "Mises à jour",
-        "currentVersion": "Version actuelle",
-        "availableVersion": "Version disponible",
-        "checking": "Vérification des mises à jour...",
-        "upToDate": "Vous êtes à jour.",
-        "available": "Mise à jour disponible",
-        "checkFailed": "Vérification échouée",
-        "checkButton": "Vérifier les mises à jour",
-        "installButton": "Installer la mise à jour",
-        "installing": "Installation...",
-        "downloading": "Téléchargement..."
-    },
-    "examples": {
-        "title": "Exemples d'API Tauri",
-        "subtitle": "Démonstration des composables Tauri disponibles",
-        "window": {
-            "title": "Contrôle Fenêtre",
-            "minimize": "Minimiser",
-            "maximize": "Maximiser/Restaurer",
-            "close": "Fermer"
-        },
-        "notifications": {
-            "title": "Notifications",
-            "send": "Envoyer une Notification",
-            "description": "Notifications système natives",
-            "test": {
-                "title": "Test de Notification",
-                "body": "Ceci est une notification système native !"
-            }
-        },
-        "system": {
-            "title": "Info Système",
-            "get": "Obtenir les Infos Système",
-            "os": "OS",
-            "arch": "Architecture",
-            "family": "Famille"
-        }
-    },
-    "notFound": {
-        "title": "404",
-        "subtitle": "Page Introuvable",
-        "description": "La page que vous recherchez n'existe pas.",
-        "backHome": "Retour à l'Accueil"
+  "common": {
+    "back": "Retour",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "dismiss": "Fermer",
+    "cancel": "Annuler"
+  },
+  "nav": {
+    "home": "Accueil",
+    "settings": "Paramètres",
+    "library": "Bibliothèque"
+  },
+  "titlebar": {
+    "minimize": "Réduire",
+    "maximize": "Agrandir",
+    "restore": "Restaurer",
+    "close": "Fermer"
+  },
+  "home": {
+    "eyebrow": "Écosystème",
+    "subtitle": "Installe, mets à jour et lance les apps Onisoft depuis un seul endroit.",
+    "appsHeading": "Bibliothèque",
+    "libraryHint": "Sélectionne une app pour l’installer, la mettre à jour ou la lancer.",
+    "catalogStatus": "{{count}} apps · manifests synchronisés"
+  },
+  "app": {
+    "notFound": "Application introuvable.",
+    "install": "Installer",
+    "installing": "Installation…",
+    "update": "Mettre à jour",
+    "updating": "Mise à jour…",
+    "launch": "Lancer",
+    "launchAnyway": "Lancer quand même",
+    "detect": "Détecter",
+    "repo": "Dépôt",
+    "uninstall": "Désinstaller",
+    "uninstallTitle": "Désinstaller {{name}} ?",
+    "uninstallDescription": "L’application sera retirée de Windows. Le cache du launcher sera aussi nettoyé. Cette action peut demander une élévation UAC.",
+    "uninstallConfirm": "Désinstaller",
+    "uninstalling": "Désinstallation…",
+    "uninstallingPhase": "Désinstallation en cours…",
+    "details": "Détails",
+    "detailsNotInstalled": "Pas encore installée sur cette machine.",
+    "installSize": "Taille sur disque",
+    "cacheSize": "Cache launcher",
+    "installDir": "Dossier",
+    "executable": "Exécutable",
+    "remoteVersion": "Dernière",
+    "localVersion": "Installée",
+    "downloading": "Téléchargement…",
+    "installingPhase": "Installation en cours…",
+    "locatingPhase": "Recherche de l’exécutable…",
+    "detectNotFound": "Exécutable introuvable — vérifiez les chemins du manifeste",
+    "manifestSource": "Source",
+    "releaseTag": "Dernière release · v{{version}}",
+    "releaseFallback": "Consulte le dépôt pour le changelog.",
+    "installKind": "Type",
+    "installedAt": "Installée le",
+    "viewOnGithub": "Voir sur GitHub",
+    "status": {
+      "installed": "Installée",
+      "updateAvailable": "Mise à jour",
+      "notInstalled": "À installer"
     }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "subtitle": "Apparence, langue et catalogue.",
+    "theme": {
+      "title": "Thème",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système"
+    },
+    "language": {
+      "title": "Langue",
+      "en": "English",
+      "fr": "Français"
+    },
+    "catalog": {
+      "title": "Catalogue",
+      "refresh": "Rafraîchir les manifests",
+      "clearCache": "Vider le cache"
+    },
+    "updates": {
+      "title": "Launcher",
+      "check": "Mises à jour du launcher"
+    }
+  },
+  "updater": {
+    "title": "Mise à jour disponible",
+    "version": "Une nouvelle version est disponible",
+    "install": "Installer",
+    "downloading": "Téléchargement...",
+    "later": "Plus tard"
+  },
+  "update": {
+    "title": "Mises à jour",
+    "currentVersion": "Version actuelle",
+    "availableVersion": "Version disponible",
+    "checking": "Vérification des mises à jour...",
+    "upToDate": "Vous êtes à jour.",
+    "available": "Mise à jour disponible",
+    "checkFailed": "Vérification échouée",
+    "noReleaseYet": "Aucune release du launcher publiée pour le moment.",
+    "checkButton": "Vérifier les mises à jour",
+    "installButton": "Installer la mise à jour",
+    "installing": "Installation...",
+    "downloading": "Téléchargement..."
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Page introuvable",
+    "description": "Cette page n’existe pas.",
+    "backHome": "Retour à l’accueil"
+  }
 }

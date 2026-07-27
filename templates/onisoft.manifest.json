@@ -1,0 +1,52 @@
+{
+  "$schema": "./onisoft.manifest.schema.json",
+  "id": "my-app",
+  "name": {
+    "fr": "Mon App",
+    "en": "My App"
+  },
+  "description": {
+    "fr": "Description courte de l'application.",
+    "en": "Short application description."
+  },
+  "branding": {
+    "primaryColor": "#6a6dfb",
+    "logo": "https://raw.githubusercontent.com/OWNER/REPO/main/public/logo.png"
+  },
+  "repo": "https://github.com/OWNER/REPO",
+  "version": {
+    "source": "github-releases",
+    "repo": "OWNER/REPO"
+  },
+  "download": {
+    "windows-x86_64": {
+      "asset": "MyApp_x64-setup.exe",
+      "kind": "installer"
+    },
+    "darwin-universal": {
+      "asset": "MyApp.app.tar.gz",
+      "kind": "archive"
+    },
+    "linux-x86_64": {
+      "asset": "MyApp_amd64.AppImage",
+      "kind": "archive"
+    }
+  },
+  "launch": {
+    "windows": {
+      "executable": "MyApp.exe",
+      "candidates": [
+        "%LOCALAPPDATA%/Programs/MyApp/MyApp.exe",
+        "%PROGRAMFILES%/MyApp/MyApp.exe"
+      ]
+    },
+    "macos": {
+      "executable": "MyApp.app",
+      "candidates": ["/Applications/MyApp.app"]
+    },
+    "linux": {
+      "executable": "MyApp.AppImage",
+      "candidates": []
+    }
+  }
+}
